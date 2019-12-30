@@ -2,6 +2,25 @@ let unirest = require('unirest');
 let https = require('https');
 let fs = require('fs');
 
+/**
+ * Search the nasa images api and return the search result items' image collections
+ */
+exports.searchAndGetResultItemsImageCollections = (url,  callback) => {
+
+    unirest.get(url).end(response => {
+
+        const imageCollections = [];
+
+        const items = response.body.collection.items;
+    
+        items.forEach(item => {
+            imageCollections.push(item.href)
+        });
+
+        callback(imageCollections);
+    });
+};
+
 function main() {
 
 // here is the spec for "items"
@@ -41,15 +60,12 @@ unirest.get(url).end(response => {
                 }
             });
 
-
-
             // TODO: SLOW HTTP CALL
             console.log(imageUrls);
         }); 
     });
 });
 }
-
 
 exports.downloadImageAndSaveToDisk = (imageUrl, filename) => {
     https.get(imageUrl, response => {
