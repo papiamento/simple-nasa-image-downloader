@@ -1,0 +1,17 @@
+{
+  "name": "simple-nasa-image-downloader",
+  "version": "1.0.0",
+  "description": "a simple node command line utility to download nasa images",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx jest"
+  },
+  "author": "Michel Lacle",
+  "license": "ISC",
+  "dependencies": {
+    "unirest": "^0.6.0"
+  },
+  "devDependencies": {
+    "jest": "^24.9.0"
+  }
+}
