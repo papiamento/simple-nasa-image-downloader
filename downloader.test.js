@@ -1,5 +1,14 @@
 const d = require('./downloader');
 
+test('that a filename can be extract from a url', () => {
+
+    const imageUrl = 'https://images-assets.nasa.gov/image/PIA13339/PIA13339~orig.jpg';
+
+    const filename = d.extractFilenameFromUrl(imageUrl);
+
+    expect(filename).toMatch('PIA13339~orig.jpg');
+});
+
 test('that an image can be downloaded', () => {
 
     const imageUrl = 'https://images-assets.nasa.gov/image/PIA13339/PIA13339~orig.jpg';
@@ -29,6 +38,14 @@ test('that we can query the image collection and pick the original image', (done
         console.log(originalImageUrl);
         expect(originalImageUrl).not.toBeFalsy();
         expect(originalImageUrl).toMatch(/http.*orig.*/);
+        done();
+    });
+});
+
+test('that we can download all image when searching for orion', (done) => {
+
+    d.downloadAllSearchedImages(() => {
+
         done();
     });
 });
