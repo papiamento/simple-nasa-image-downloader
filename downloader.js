@@ -2,24 +2,7 @@ let unirest = require('unirest');
 let https = require('https');
 let fs = require('fs');
 
-/**
- * Search the nasa images api and return the search result items' image collections
- */
-exports.searchAndGetResultItemsImageCollections = (url,  callback) => {
 
-    unirest.get(url).end(response => {
-
-        const imageCollections = [];
-
-        const items = response.body.collection.items;
-    
-        items.forEach(item => {
-            imageCollections.push(item.href)
-        });
-
-        callback(imageCollections);
-    });
-};
 
 function main() {
 
@@ -74,3 +57,38 @@ exports.downloadImageAndSaveToDisk = (imageUrl, filename) => {
         response.pipe(fileWriteStream);
     });
 };
+
+/**
+ * Search the nasa images api and return the search result items' image collections
+ */
+exports.searchAndGetResultItemsImageCollections = (url,  callback) => {
+
+    unirest.get(url).end(response => {
+
+        const imageCollections = [];
+
+        const items = response.body.collection.items;
+    
+        items.forEach(item => {
+            imageCollections.push(item.href)
+        });
+
+        callback(imageCollections);
+    });
+};
+
+exports.getOrigImageUrl = (imageCollectionUrl, callback) => {
+
+    unirest.get(imageCollectionUrl).end(response => {
+
+        const urls = response.body;
+
+        urls.forEach(url => {
+
+            // if we find the original we peace out immediately
+            if (url.match(/orig/)) {
+                callback(url);
+            }
+        })
+    });
+}
