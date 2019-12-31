@@ -1,6 +1,5 @@
 let unirest = require('unirest');
 let https = require('https');
-let http = require('http');
 let fs = require('fs');
 
 /**
@@ -48,19 +47,13 @@ function getOrigImageUrl(imageCollectionUrl, callback) {
 
 exports.downloadImageAndSaveToDisk = (imageUrl, filename) => {
     
-    if (imageUrl.match(/https.*/)) {
-        https.get(imageUrl, response => {
+    const httpsImageUrl = imageUrl.replace(/http:/, 'https:');
 
-            let fileWriteStream = fs.createWriteStream(filename);
-            response.pipe(fileWriteStream);
-        });
-    } else {
-        http.get(imageUrl, response => {
+    https.get(httpsImageUrl, response => {
 
-            let fileWriteStream = fs.createWriteStream(filename);
-            response.pipe(fileWriteStream);
-        });
-    }
+        let fileWriteStream = fs.createWriteStream(filename);
+        response.pipe(fileWriteStream);
+    });
 };
 
 exports.downloadAllSearchedImages = (callback) => {
