@@ -4,7 +4,8 @@
   "description": "a simple node command line utility to download nasa images",
   "main": "index.js",
   "scripts": {
-    "test": "npx jest"
+    "test": "npx jest",
+    "clean": "rm -fr images/*"
   },
   "author": "Michel Lacle",
   "license": "ISC",
