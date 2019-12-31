@@ -58,7 +58,7 @@ exports.downloadImageAndSaveToDisk = (imageUrl, filename) => {
 
 exports.downloadAllSearchedImages = (callback) => {
 
-    const searchUrl = 'https://images-api.nasa.gov/search?q=space&page=1&media_type=image&year_start=1920&year_end=2019';
+    const searchUrl = 'https://images-api.nasa.gov/search?q=galaxy&media_type=image&year_start=1920&year_end=2019';
 
     this.searchAndGetResultItemsImageCollections(searchUrl, (searchResultItems) => {
 
@@ -69,7 +69,7 @@ exports.downloadAllSearchedImages = (callback) => {
             getOrigImageUrl(imageCollectionUrl, (origImageUrl) => {
 
                 const filename = extractFilenameFromUrl(origImageUrl);
-                this.downloadImageAndSaveToDisk(origImageUrl, filename);
+                this.downloadImageAndSaveToDisk(origImageUrl, 'images/' + filename);
 
                 callback();
             });

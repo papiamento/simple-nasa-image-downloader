@@ -13,7 +13,7 @@ test('that an image can be downloaded', () => {
 
     const imageUrl = 'https://images-assets.nasa.gov/image/PIA13339/PIA13339~orig.jpg';
 
-    d.downloadImageAndSaveToDisk(imageUrl, 'file1.jpg');
+    d.downloadImageAndSaveToDisk(imageUrl, 'images/file1.jpg');
 });
 
 test('that we can get the image collection urls for each search result', (done) => {
