@@ -2,3 +2,4 @@ file1.jpg
 node_modules
 .DS_Store
 images
+.vscode

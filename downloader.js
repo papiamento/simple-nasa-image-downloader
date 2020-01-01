@@ -33,15 +33,23 @@ function getOrigImageUrl(imageCollectionUrl, callback) {
 
     unirest.get(imageCollectionUrl).end(response => {
 
-        const urls = response.body;
+        // TODO make sure we handle errors yo
+        console.log(imageCollectionUrl);
 
-        urls.forEach(url => {
+        if (response.error) {
+            callback(null);
+        }
+        else {
+            const urls = response.body;
 
-            // if we find the original we peace out immediately
-            if (url.match(/orig/)) {
-                callback(url);
-            }
-        })
+            urls.forEach(url => {
+    
+                // if we find the original we peace out immediately
+                if (url.match(/orig/)) {
+                    callback(url);
+                }
+            })
+        }
     });
 }
 
@@ -56,9 +64,9 @@ exports.downloadImageAndSaveToDisk = (imageUrl, filename) => {
     });
 };
 
-exports.downloadAllSearchedImages = (callback) => {
+exports.downloadAllSearchedImages = (searchTerm, callback) => {
 
-    const searchUrl = 'https://images-api.nasa.gov/search?q=galaxy&media_type=image&year_start=1920&year_end=2019';
+    const searchUrl = 'https://images-api.nasa.gov/search?q=' + searchTerm + '&media_type=image&year_start=1920&year_end=2019';
 
     this.searchAndGetResultItemsImageCollections(searchUrl, (searchResultItems) => {
 
@@ -68,17 +76,15 @@ exports.downloadAllSearchedImages = (callback) => {
 
             getOrigImageUrl(imageCollectionUrl, (origImageUrl) => {
 
-                const filename = extractFilenameFromUrl(origImageUrl);
-                this.downloadImageAndSaveToDisk(origImageUrl, 'images/' + filename);
+                if (origImageUrl) {
 
-                callback();
+                    const filename = extractFilenameFromUrl(origImageUrl);
+                    this.downloadImageAndSaveToDisk(origImageUrl, 'images/' + filename);
+    
+                    callback();
+                }
             });
         }
-
-        searchResultItems.forEach(imageCollectionUrl => {
-
-
-        });
     });
 };
 
