@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "npx jest",
-    "clean": "rm -fr images/*"
+    "clean": "rm -fr images/*",
+    "lint": "npx eslint **/*.js"
   },
   "author": "Michel Lacle",
   "license": "ISC",
