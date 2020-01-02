@@ -9,7 +9,7 @@
     "lint": "npx eslint **/*.js",
     "build": "npm run lint"
   },
-  "author": "Michel Lacle",
+  "author": "Michel Lacle <michel@f1kart.com>",
   "license": "ISC",
   "dependencies": {
     "ci": "^1.0.0",
