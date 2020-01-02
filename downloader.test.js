@@ -44,7 +44,7 @@ test('that we can query the image collection and pick the original image', (done
 
 test('that we can download all image when searching for orion', (done) => {
 
-    d.downloadAllSearchedImages('apollo', () => {
+    d.downloadAllSearchedImages('lunar landing', () => {
 
         done();
     });
