@@ -1,6 +1,6 @@
-let unirest = require('unirest');
-let https = require('https');
-let fs = require('fs');
+const unirest = require('unirest');
+const https = require('https');
+const fs = require('fs');
 
 /**
  * Search the nasa images api and return the search result items' image collections
@@ -9,7 +9,7 @@ exports.searchAndGetResultItemsImageCollections = (url, callback) => {
   unirest.get(url).end(response => {
     const imageCollections = [];
 
-    const items = response.body.collection.items;
+    const { items } = response.body.collection;
 
     items.forEach(item => {
       imageCollections.push(item.href);
@@ -51,25 +51,26 @@ exports.downloadImageAndSaveToDisk = (imageUrl, filename) => {
   const httpsImageUrl = imageUrl.replace(/http:/, 'https:');
 
   https.get(httpsImageUrl, response => {
-    let fileWriteStream = fs.createWriteStream(filename);
+    const fileWriteStream = fs.createWriteStream(filename);
     response.pipe(fileWriteStream);
   });
 };
 
+function extractFilenameFromUrl(url) {
+  return url.replace(/http.*\//, '');
+}
+
 exports.downloadAllSearchedImages = (searchTerm, callback) => {
-  const searchUrl =
-    'https://images-api.nasa.gov/search?q=' +
-    searchTerm +
-    '&media_type=image&year_start=1920&year_end=2019';
+  const searchUrl = `https://images-api.nasa.gov/search?q=${searchTerm}&media_type=image&year_start=1920&year_end=2019`;
 
   this.searchAndGetResultItemsImageCollections(searchUrl, searchResultItems => {
-    for (let i = 0; i < searchResultItems.length; ++i) {
-      let imageCollectionUrl = searchResultItems[i];
+    for (let i = 0; i < searchResultItems.length; i += 1) {
+      const imageCollectionUrl = searchResultItems[i];
 
       getOrigImageUrl(imageCollectionUrl, origImageUrl => {
         if (origImageUrl) {
           const filename = extractFilenameFromUrl(origImageUrl);
-          this.downloadImageAndSaveToDisk(origImageUrl, 'images/' + filename);
+          this.downloadImageAndSaveToDisk(origImageUrl, `images/${filename}`);
 
           callback();
         }
@@ -77,10 +78,6 @@ exports.downloadAllSearchedImages = (searchTerm, callback) => {
     }
   });
 };
-
-function extractFilenameFromUrl(url) {
-  return url.replace(/http.*\//, '');
-}
 
 exports.getOrigImageUrl = getOrigImageUrl;
 exports.extractFilenameFromUrl = extractFilenameFromUrl;
