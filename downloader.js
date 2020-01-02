@@ -30,7 +30,6 @@ exports.searchAndGetResultItemsImageCollections = (url, callback) => {
 function getOrigImageUrl(imageCollectionUrl, callback) {
   unirest.get(imageCollectionUrl).end(response => {
     // TODO make sure we handle errors yo
-    console.log(imageCollectionUrl);
 
     if (response.error) {
       callback(null);

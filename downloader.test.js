@@ -30,7 +30,6 @@ test('that we can query the image collection and pick the original image', done 
   const collectionUrl = 'https://images-assets.nasa.gov/image/201211020022HQ/collection.json';
 
   d.getOrigImageUrl(collectionUrl, originalImageUrl => {
-    console.log(originalImageUrl);
     expect(originalImageUrl).not.toBeFalsy();
     expect(originalImageUrl).toMatch(/http.*orig.*/);
     done();
