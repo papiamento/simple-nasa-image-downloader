@@ -11,10 +11,10 @@
   },
   "author": "Michel Lacle <michel@f1kart.com>",
   "license": "ISC",
-  "homepage": "https://github.com/michel-lacle/simple-nasa-image-downloader",
+  "homepage": "https://github.com/papiamento/simple-nasa-image-downloader",
   "respository": {
     "type": "git",
-    "url": "https://github.com/michel-lacle/simple-nasa-image-downloader.git"
+    "url": "https://github.com/papiamento/simple-nasa-image-downloader.git"
   },
   "bin": {
     "nasa-images-download": "bin/download.js"
