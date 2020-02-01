@@ -17,7 +17,7 @@ This CLI tool allows you to search NASA's public images API for a search term an
 * ````$ simple-nasa-image-downloader <search term>````
 * your images will download in the current directory under the images folder.
 
-# TODO 
+## TODO 
 
 * add pre commit hook to run lint & tests
 * remove unirest and use only the core node library
