@@ -17,10 +17,9 @@
     "url": "https://github.com/papiamento/simple-nasa-image-downloader.git"
   },
   "bin": {
-    "nasa-images-download": "bin/download.js"
+    "simple-nasa-images-downloader": "bin/download.js"
   },
   "dependencies": {
-    "ci": "^1.0.0",
     "unirest": "^0.6.0"
   },
   "devDependencies": {
